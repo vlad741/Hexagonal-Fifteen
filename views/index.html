@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Гексагональные пятнашки</title>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <style>
+        .hex-row.even {
+            margin-left: 53px;
+        }
+
+        .hex {
+            float: left;
+            margin-right: -26px;
+            margin-bottom: -50px;
+            margin-top: -53px;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 90px;
+            font-size: large;
+        }
+
+        .hex.even {
+            margin-top: 53px;
+        }
+
+        .hex .left {
+            float: left;
+            width: 0;
+            border-right: 30px solid #6C6;
+            border-top: 52px solid transparent;
+            border-bottom: 52px solid transparent;
+        }
+
+        .hex .middle {
+            float: left;
+            width: 60px;
+            height: 104px;
+            background: #6C6;
+        }
+
+        .hex .right {
+            float: left;
+            width: 0;
+            border-left: 30px solid #6C6;
+            border-top: 52px solid transparent;
+            border-bottom: 52px solid transparent;
+        }
+
+        .hex-row {
+            clear: left;
+        }
+
+        .hex-transparent {
+            background: #000;
+        }
+
+        .board {
+            -webkit-transform: perspective(600px) rotateX(60deg);
+            -moz-transform: perspective(600px) rotateX(60deg);
+            -ms-transform: perspective(600px) rotateX(60deg);
+            -o-transform: perspective(600px) rotateX(60deg);
+            transform: perspective(600px) rotateX(60deg);
+        }
+
+        table td {
+            padding: 0px;
+            border: 0px;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body class="container">
+    <div class="jumbotron">
+        <p>
+            <b>Кол-во гексагон с одной стороны поля:</b><br>
+            <input type="number" id="numberOfHexagonOnOneSide" min="2" max="5">
+            <input type="button" onclick="generate_table()" value="Submit">
+        </p>
+    </div>
+</body>
+
+<script>
+    function generate_table() {
+        var table = document.getElementsByTagName("table")[0];
+
+        if (table) {
+            table.parentNode.removeChild(table);
+        }
+
+        var numberOfHexagonOnOneSide = document.getElementById("numberOfHexagonOnOneSide").value
+
+        if (numberOfHexagonOnOneSide == 2) {
+            var arr = [
+                [1, 2, 3],
+                [4, 5, 6],
+                [-1, 0, -1]
+            ];
+        };
+        if (numberOfHexagonOnOneSide == 3) {
+            var arr = [
+                [-1, -1, 1, -1, -1],
+                [2, 3, 4, 5, 6],
+                [7, 8, 9, 10, 11],
+                [12, 13, 14, 15, 16],
+                [-1, 17, 18, 0, -1]
+            ];
+        }
+        if (numberOfHexagonOnOneSide == 4) {
+            var arr = [
+                [-1, -1, 1, 2, 3, -1, -1],
+                [4, 5, 6, 7, 8, 9, 10],
+                [11, 12, 13, 14, 15, 16, 17],
+                [18, 19, 20, 21, 22, 23, 24],
+                [25, 26, 27, 28, 29, 30, 31],
+                [-1, 32, 33, 34, 35, 36, -1],
+                [-1, -1, -1, 0, -1, -1, -1]
+            ];
+        };
+        if (numberOfHexagonOnOneSide == 5) {
+            var arr = [
+                [-1, -1, -1, -1, 1, -1, -1, -1, -1],
+                [-1, -1, 2, 3, 4, 5, 6, -1, -1],
+                [7, 8, 9, 10, 11, 12, 13, 14, 15],
+                [16, 17, 18, 19, 20, 21, 22, 23, 24],
+                [25, 26, 27, 28, 29, 30, 31, 32, 33],
+                [34, 35, 36, 37, 38, 39, 40, 41, 42],
+                [43, 44, 45, 46, 47, 48, 49, 50, 51],
+                [-1, 52, 53, 54, 55, 56, 57, 58, -1],
+                [-1, -1, -1, 59, 60, 0, -1, -1, -1]
+            ];
+        };
+
+        var body = document.getElementsByTagName("body")[0];
+
+        var tbl = document.createElement("table");
+        tbl.style.cssText = 'margin-left:auto;margin-right:auto; overflow:auto;';
+        var tblBody = document.createElement("tbody");
+
+        for (var i = 0; i < arr.length; i++) {
+            var row = document.createElement("tr");
+
+            for (var j = 0; j < arr[i].length; j++) {
+                var cell = document.createElement("td");
+                if (j % 2 === 0) {
+                    if (arr[i][j] >= 0) {
+                        cell.innerHTML = `<div class="hex even"><div class="left"></div><div class="middle" id="number">${arr[i][j]}</div><div class="right"></div></div>`;
+                    }
+                    else {
+                        cell.innerHTML = `<div style="width: 60px; height: 104px;"></div>`;
+                    }
+                }
+                else {
+                    if (arr[i][j] > 0) {
+                        cell.innerHTML = `<div class="hex"><div class="left"></div><div class="middle id="number"">${arr[i][j]}</div><div class="right"></div></div>`;
+                    }
+                    else if (arr[i][j] == 0) {
+                        cell.innerHTML = `<div class="hex"><div class="left"></div><div class="middle"></div><div class="right"></div></div>`
+                    }
+                    else {
+                        cell.innerHTML = `<div style="width: 60px; height: 104px;"></div>`;
+                    }
+                }
+                row.appendChild(cell);
+            }
+
+            tblBody.appendChild(row);
+        }
+
+        tbl.appendChild(tblBody);
+        
+        body.appendChild(tbl);
+
+
+        var td = document.querySelectorAll('td');
+
+        if (td.length !== 0) {
+            var start = td[0];
+
+            [].forEach.call(td, function (item) {
+                item.addEventListener('click', function () {
+                    start.style.backgroundColor = '';
+                    start.style.color = '';
+                    start = this;
+                    start.focus();
+                    start.style.color = 'white';
+                });
+
+            });
+        }
+
+        document.addEventListener('keydown', function (e) {
+            e = e || window.event;
+            if (e.keyCode == '38') {
+                // up arrow
+                var idx = start.cellIndex;
+                var nextrow = start.parentElement.previousElementSibling;
+                if (nextrow != null) {
+                    var sibling = nextrow.cells[idx];
+                    dotheneedful(sibling);
+                }
+            } else if (e.keyCode == '40') {
+                // down arrow
+                var idx = start.cellIndex;
+                var nextrow = start.parentElement.nextElementSibling;
+                if (nextrow != null) {
+                    var sibling = nextrow.cells[idx];
+                    dotheneedful(sibling);
+                }
+            } else if (e.keyCode == '37') {
+                // left arrow
+                var sibling = start.previousElementSibling;
+                dotheneedful(sibling);
+            } else if (e.keyCode == '39') {
+                // right arrow
+                var sibling = start.nextElementSibling;
+                dotheneedful(sibling);
+            }
+            else if (e.keyCode == '13') {
+                // down arrow
+                var idx = start.cellIndex;
+                var nextrow = start.parentElement.nextElementSibling;
+                if (nextrow != null) {
+                    var sibling = nextrow.cells[idx];
+                    moveHexagone(sibling);
+                }
+            }
+        });
+
+        function moveHexagone(sibling) {
+            if (sibling != null) {
+                start.focus();
+                start.style.backgroundColor = '';
+                start.style.color = '';
+                sibling.focus();
+                sibling.style.color = 'white';
+                start = sibling;
+            }
+        }
+
+        function dotheneedful(sibling) {
+            if (sibling != null) {
+                start.focus();
+                start.style.backgroundColor = '';
+                start.style.color = '';
+                sibling.focus();
+                sibling.style.color = 'white';
+                start = sibling;
+            }
+        }
+    }
+
+</script>
+
+</html>
