@@ -1,0 +1,19 @@
+{
+  "name": "hexagonal-fifteen",
+  "version": "1.0.0",
+  "description": "1) Clone this repo: \r git clone https://github.com/vlad741/Hexagonal-Fifteen.git\r 2) Install dependencies using npm javascript package manager: \r npm install express\r 3) Tune to url: \r http://localhost:8080",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vlad741/Hexagonal-Fifteen.git"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/vlad741/Hexagonal-Fifteen#readme"
+}
